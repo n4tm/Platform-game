@@ -8,7 +8,8 @@ namespace Animation
         [SerializeField] private PlayerMove playerMoveScript;
         private Animator playerAnimator;
         private static readonly int Speed = Animator.StringToHash("Speed");
-
+        private static readonly int Jump = Animator.StringToHash("Jump");
+        
 
         private void Start()
         {
@@ -19,6 +20,7 @@ namespace Animation
         {
             var velocity = playerMoveScript.horizontalMove;
             playerAnimator.SetFloat(Speed,velocity);
+            playerAnimator.SetBool(Jump, !playerMoveScript.canJump);
         }
     }
 }
