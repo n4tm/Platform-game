@@ -6,8 +6,8 @@ namespace Fruit
     {
         private CircleCollider2D circleColl;
         private SpriteRenderer spriteRend;
-        [SerializeField] private GameObject collected;
-        [SerializeField] private int score;
+        public GameObject collected;
+        public int score;
         private void Start()
         {
             circleColl = GetComponent<CircleCollider2D>();
@@ -22,6 +22,7 @@ namespace Fruit
                 spriteRend.enabled = false;
                 collected.SetActive(true);
                 GameController.Score.instance.totalScore += score;
+                GameController.Score.instance.UpdateScoreText();
                 Destroy(gameObject, 0.25f);
             }
         }

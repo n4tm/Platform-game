@@ -7,7 +7,7 @@ namespace Animation
     {
         [SerializeField] private PlayerMove playerMoveScript;
         private Animator playerAnimator;
-        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Walk = Animator.StringToHash("Walk");
         private static readonly int Jump = Animator.StringToHash("Jump");
         
 
@@ -19,8 +19,16 @@ namespace Animation
         private void Update()
         {
             var velocity = playerMoveScript.horizontalMove;
-            playerAnimator.SetFloat(Speed,velocity);
-            playerAnimator.SetBool(Jump, !playerMoveScript.canJump);
+            if (velocity < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else if (velocity > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            playerAnimator.SetBool(Walk,playerMoveScript.horizontalMove != 0);
+            playerAnimator.SetBool(Jump, playerMoveScript.isJumping);
         }
     }
 }
